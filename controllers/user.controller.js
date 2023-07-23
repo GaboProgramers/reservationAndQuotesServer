@@ -13,7 +13,7 @@ exports.findUsers = catchAsync(async (req, res, next) => {
       exclude: ['createdAt', 'updatedAt', 'password', 'passwordChangeAt'],
     },
     where: {
-      status: true,
+      status: 'verified',
     },
   });
 
@@ -95,7 +95,7 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
 exports.deleteUser = catchAsync(async (req, res, next) => {
   const { user } = req;
 
-  await user.update({ status: false });
+  await user.update({ status: 'unverified' });
 
   res.json({
     status: 'success',

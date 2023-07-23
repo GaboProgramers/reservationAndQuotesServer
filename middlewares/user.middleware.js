@@ -11,7 +11,7 @@ exports.validUserById = catchAsync(async (req, res, next) => {
     },
     where: {
       id,
-      status: 'unverified',
+      status: 'verified',
     },
   });
 

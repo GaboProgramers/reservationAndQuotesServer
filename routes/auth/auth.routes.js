@@ -5,17 +5,22 @@ const {
   login,
   renewToken,
   confirmSign,
+  forgetPassword,
+  resetPassword,
 } = require('../../controllers/auth/auth.controller');
+
 const { protect } = require('../../middlewares/auth/auth.middleware');
+
 const { validIfExistUserEmail } = require('../../middlewares/user.middleware');
 const {
   validateFields,
 } = require('../../middlewares/validateField.middleware');
+
 const { upload } = require('../../utils/multer');
 
 const router = Router();
 
-router.get('/confirm/:token', confirmSign)
+router.get('/confirm/:token', confirmSign);
 
 router.post(
   '/signup',
@@ -42,6 +47,26 @@ router.post(
     validateFields,
   ],
   login
+);
+
+router.post(
+  '/forgot-password',
+  [
+    check('email', 'The email require').not().isEmpty(),
+    check('email', 'The email must be a correct format').isEmail(),
+    validateFields,
+  ],
+  forgetPassword
+);
+
+router.patch(
+  '/reset-password/:token',
+  [
+    check('currentPassword', 'The current password must be mandatory').not().isEmpty(),
+    check('newPassword', 'The new password must be mandatory').not().isEmpty(),
+    validateFields,
+  ],
+  resetPassword
 );
 
 router.use(protect);
