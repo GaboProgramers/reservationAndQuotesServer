@@ -3,7 +3,7 @@ const express = require('express');
 // const helmet = require('helmet');
 const hpp = require('hpp');
 const morgan = require('morgan');
-const rateLimit = require('express-rate-limit');
+// const rateLimit = require('express-rate-limit');
 // const xss = require('xss-clean');
 const compression = require("compression")
 
@@ -21,11 +21,11 @@ class Server {
 
     this.port = process.env.PORT || 3000;
 
-    this.limiter = rateLimit({
+    /* this.limiter = rateLimit({
       max: 100,
       windowMs: 60 * 60 * 1000,
       message: 'Too many request from this IP, Place try again in an hour!',
-    });
+    }); */
 
     this.paths = {
       auth: '/api/v1/auth',
