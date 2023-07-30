@@ -56,7 +56,7 @@ class Server {
     }
 
     // ! nuevo para copiar
-    this.app.use('/api/v1', this.limiter);
+    /* this.app.use('/api/v1', this.limiter); */
 
     this.app.use(cors());
 
