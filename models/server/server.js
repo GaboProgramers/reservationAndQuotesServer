@@ -1,10 +1,10 @@
 const cors = require('cors');
 const express = require('express');
-const helmet = require('helmet');
+// const helmet = require('helmet');
 const hpp = require('hpp');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
-const xss = require('xss-clean');
+// const xss = require('xss-clean');
 const compression = require("compression")
 
 const { db } = require('../../database/db');
@@ -43,9 +43,9 @@ class Server {
   middlewares() {
     this.app.use(express.static('/public'))
 
-    this.app.use(helmet());
+    // this.app.use(helmet());
 
-    this.app.use(xss());
+    // this.app.use(xss());
 
     this.app.use(hpp());
 
