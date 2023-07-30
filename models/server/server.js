@@ -1,10 +1,10 @@
 const cors = require('cors');
 const express = require('express');
-// const helmet = require('helmet');
+const helmet = require('helmet');
 const hpp = require('hpp');
 const morgan = require('morgan');
-// const rateLimit = require('express-rate-limit');
-// const xss = require('xss-clean');
+const rateLimit = require('express-rate-limit');
+const xss = require('xss-clean');
 const compression = require("compression")
 
 const { db } = require('../../database/db');
@@ -21,11 +21,11 @@ class Server {
 
     this.port = process.env.PORT || 3000;
 
-    /* this.limiter = rateLimit({
+    this.limiter = rateLimit({
       max: 100,
       windowMs: 60 * 60 * 1000,
       message: 'Too many request from this IP, Place try again in an hour!',
-    }); */
+    });
 
     this.paths = {
       auth: '/api/v1/auth',
@@ -43,9 +43,9 @@ class Server {
   middlewares() {
     this.app.use(express.static('/public'))
 
-    // this.app.use(helmet());
+    this.app.use(helmet());
 
-    // this.app.use(xss());
+    this.app.use(xss());
 
     this.app.use(hpp());
 
@@ -56,7 +56,7 @@ class Server {
     }
 
     // ! nuevo para copiar
-    /* this.app.use('/api/v1', this.limiter); */
+    this.app.use('/api/v1', this.limiter);
 
     this.app.use(cors());
 
