@@ -58,15 +58,15 @@ exports.confirmSign = catchAsync(async (req, res, next) => {
 
   // verificar la data del token
 
-  const data = JSON.parse(atob(token.split('.')[1]));
+  const decode = jwt.verify(token, process.env.SECRETE_JWT_SEED)
 
-  console.log(data);
+  console.log(decode);
 
-  if (!data) {
+  if (!decode) {
     return next(new AppError('Error al obtener data', 404));
   }
 
-  const { email, id } = data;
+  const { email, id } = decode;
 
   // verificar que existe el usuario
   const user = await User.findOne({
