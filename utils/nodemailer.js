@@ -41,7 +41,7 @@ const getTemplate = (name, token) => {
         Para confirmar tu cuenta, ingresa en el siguiente enlace.
       </p>
 
-      <a href="http://localhost:3000/api/v1/auth/confirm/${token}" target="_blank"
+      <a href="https://quote360.onrender.com/api/v1/auth/confirm/${token}" target="_blank"
         >Confirmar Cuenta</a
       >
     </div>
