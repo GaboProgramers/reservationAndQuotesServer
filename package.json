@@ -2,14 +2,16 @@
   "name": "00_reserver_and_cities",
   "version": "1.0.0",
   "description": "API para realizar recervas y citas en locales y establecimientos, 'Restaurantes', 'spa', 'consultorios' y mas",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "build": "node app.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "nodemon app.js",
+    "start:prod": "SET NODE_ENV=production&nodemon app.js",
+    "debug": "ndb app.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "yostin gutierrez <gyostin604@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
