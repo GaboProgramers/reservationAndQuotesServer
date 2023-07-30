@@ -62,7 +62,6 @@ router.post(
 router.patch(
   '/reset-password/:token',
   [
-    check('currentPassword', 'The current password must be mandatory').not().isEmpty(),
     check('newPassword', 'The new password must be mandatory').not().isEmpty(),
     validateFields,
   ],

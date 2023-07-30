@@ -46,6 +46,7 @@ exports.createUser = catchAsync(async (req, res, next) => {
       lastName: user.lastName,
       email: user.email,
       role: user.role,
+      status: user.status
     },
   });
 });
@@ -135,8 +136,6 @@ exports.login = catchAsync(async (req, res, next) => {
 exports.forgetPassword = catchAsync(async (req, res, next) => {
   const { email } = req.body;
 
-  console.log(email);
-
   // verificar el correo enviado en la base de datos y buscar al usuario.
 
   const user = await User.findOne({
@@ -147,7 +146,7 @@ exports.forgetPassword = catchAsync(async (req, res, next) => {
   });
 
   if (!user) {
-    console.log('usuario no existe');
+    return next(new AppError('The user could not be found', 404));
   }
 
   // generar el nuevo token para realizar el cambio de contraseña por medio del email
@@ -177,7 +176,7 @@ exports.forgetPassword = catchAsync(async (req, res, next) => {
         Para restaurar tu cuenta sigue el enlace.
       </p>
     
-      <a href="${process.env.PASSWORD_RESET_DOMAIN}/api/v1/auth/reset-password/${token}" target="_blank"
+      <a href="${process.env.PASSWORD_RESET_DOMAIN}/#/reset-password/${token}" target="_blank"
         >Restaurar contraseña</a
       >
     </div>
@@ -191,8 +190,8 @@ exports.forgetPassword = catchAsync(async (req, res, next) => {
 });
 
 exports.resetPassword = catchAsync(async (req, res, next) => {
-  const { currentPassword, newPassword} = req.body
-  const {token} = req.params
+  const { newPassword } = req.body;
+  const { token } = req.params;
 
   // convertimos el token en un objeto leible.
   const data = JSON.parse(atob(token.split('.')[1]));
@@ -202,20 +201,24 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
     where: {
       id: data.id,
       email: data.email,
-      status: 'verified'
-    }
-  })
+      status: 'verified',
+    },
+  });
 
-  // verificar contraseña
+  if (!user) {
+    return next(new AppError('Usuario no existe', 401));
+  }
+
+  /* // verificar contraseña
   const verifPassword = await bcrypt.compare(currentPassword, user.password)
 
   if (!verifPassword) {
     return next(new AppError('Incorrect password', 401));
-  }
+  } */
 
-  if (currentPassword === newPassword) {
+  /* if (currentPassword === newPassword) {
     return next(new AppError('La contraseña es igual a tu contraseña actual', 401));
-  }
+  } */
 
   // encriptamos la nueva contraseña
   const salt = await bcrypt.genSalt(10);
@@ -255,8 +258,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
     status: 'sucsess',
     message: 'The user password wa updated successfully, verifica tu inbox',
   });
-
-})
+});
 
 exports.renewToken = catchAsync(async (req, res, next) => {
   const { id } = req.sessionUser;
