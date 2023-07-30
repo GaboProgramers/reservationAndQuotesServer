@@ -35,13 +35,13 @@ const getTemplate = (name, token) => {
       </head>
 
     <div id="email__content">
-      <h1 class="title">Confirmar Contraseña</h1>
+      <h1 class="title">Confirmar Cuenta</h1>
       <h2 class="sub">Hola ${name}</h2>
       <p class="paragr">
         Para confirmar tu cuenta, ingresa en el siguiente enlace.
       </p>
 
-      <a href="https://quote360.onrender.com/api/v1/auth/confirm/${token}" target="_blank"
+      <a href="${process.env.ACOUNT_CONFIRM}/api/v1/auth/confirm/${token}" target="_blank"
         >Confirmar Cuenta</a
       >
     </div>

@@ -34,7 +34,7 @@ exports.createUser = catchAsync(async (req, res, next) => {
 
   const template = getTemplate(firstName, token);
 
-  await sendMail(email, 'este es un correo de prueba', template);
+  await sendMail(email, 'Confirma tu cuenta', template);
 
   res.status(201).json({
     status: 'success',
@@ -59,6 +59,8 @@ exports.confirmSign = catchAsync(async (req, res, next) => {
   // verificar la data del token
 
   const data = JSON.parse(atob(token.split('.')[1]));
+
+  console.log(data);
 
   if (!data) {
     return next(new AppError('Error al obtener data', 404));
