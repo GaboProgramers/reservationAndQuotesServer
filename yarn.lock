@@ -907,10 +907,10 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
-helmet@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/helmet/-/helmet-7.0.0.tgz#ac3011ba82fa2467f58075afa58a49427ba6212d"
-  integrity sha512-MsIgYmdBh460ZZ8cJC81q4XJknjG567wzEmv46WOBblDb6TUd3z8/GhgmsM9pn8g2B80tAJ4m5/d3Bi1KrSUBQ==
+helmet@5.0.0-beta.1:
+  version "5.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/helmet/-/helmet-5.0.0-beta.1.tgz#5160ef34c8b5f9cc50095646ddf434f6180c5e94"
+  integrity sha512-uY5GJcH1/6bQ4lI+6RED6TrNFt+ixXxegn8KdgTr6OvnDZ2Ha+HKk6Ms2l6fd2gVMdwJLbxauYIvHcNSj3CDyw==
 
 hpp@^0.2.3:
   version "0.2.3"
