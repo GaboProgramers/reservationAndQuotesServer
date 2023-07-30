@@ -1,18 +1,19 @@
 {
-  "name": "00_reserver_and_cities",
+  "name": "reservation-and-quotes",
   "version": "1.0.0",
-  "description": "API para realizar recervas y citas en locales y establecimientos, 'Restaurantes', 'spa', 'consultorios' y mas",
+  "description": "Servidor de citas y reservaciones en colombia",
   "main": "app.js",
+  "repository": "https://github.com/GaboProgramers/reservationAndQuotesServer.git",
+  "author": "Gabriel Gutierrez <97479321+GaboProgramers@users.noreply.github.com>",
+  "license": "MIT",
+  "private": false,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js",
     "start": "node app.js",
     "start:dev": "nodemon app.js",
     "start:prod": "SET NODE_ENV=production&nodemon app.js",
     "debug": "ndb app.js"
   },
-  "keywords": [],
-  "author": "yostin gutierrez <gyostin604@gmail.com>",
-  "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
