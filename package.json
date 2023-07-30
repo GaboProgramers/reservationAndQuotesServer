@@ -4,7 +4,8 @@
   "description": "API para realizar recervas y citas en locales y establecimientos, 'Restaurantes', 'spa', 'consultorios' y mas",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "build": "node app.js"
   },
   "keywords": [],
   "author": "",
