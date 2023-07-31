@@ -30,7 +30,7 @@ exports.createUser = catchAsync(async (req, res, next) => {
 
   await user.save();
 
-  const token = await generateJWT(user.id, user.email);
+  const token = await generateJWT(user.id, user.email, user.role);
 
   const template = getTemplate(firstName, token);
 
@@ -52,15 +52,10 @@ exports.createUser = catchAsync(async (req, res, next) => {
 });
 
 exports.confirmSign = catchAsync(async (req, res, next) => {
-  // obtener el token
 
   const { token } = req.params;
 
-  // verificar la data del token
-
   const decode = jwt.verify(token, process.env.SECRETE_JWT_SEED)
-
-  console.log(decode);
 
   if (!decode) {
     return next(new AppError('Error al obtener data', 404));
@@ -68,7 +63,6 @@ exports.confirmSign = catchAsync(async (req, res, next) => {
 
   const { email, id } = decode;
 
-  // verificar que existe el usuario
   const user = await User.findOne({
     where: {
       id,
@@ -80,21 +74,19 @@ exports.confirmSign = catchAsync(async (req, res, next) => {
     return next(new AppError('Usuario no existe', 404));
   }
 
-  // verificar el id
   if (id !== user.id) {
     return next(new AppError('El identificador no coincide.', 404));
   }
-
-  // actualizar usuario
 
   user.status = 'verified';
   await user.save();
 
   // redireccionar a la confirmacion.!
-  res.status(201).json({
+  res.redirect(`${process.env.DOMAIN}confirm/${token}`)
+  /* res.status(201).json({
     status: 'sucsess',
     msg: 'usuario confirmado con exito.!',
-  });
+  }); */
 });
 
 exports.login = catchAsync(async (req, res, next) => {
